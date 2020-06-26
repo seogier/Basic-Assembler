@@ -21,33 +21,11 @@ def assemble(fname):
     # Split fname into name and extension
     asmname, _ = os.path.splitext(fname)
     
-    # Define Regexes
-    r_label = re.compile("^\S+:") # Section Label
-    r_c_line = re.compile("\s?//") # // comment
-    r_c_open = re.compile("\s?/\*") # /* block comment start
-    r_c_close = re.compile("\s?\*/") # */ block comment stop
-
-    # Initialize dictionary of Labels
-    labels = {}
-
-    # Initialize flag for multi-line comment
-    in_comment = False
-
     try:
         # Open assembly file
         f_asm = open(asmname + '.asm', 'r')
         # Generate machine code file 
         f_o = open(asmname + '.o', 'wb')
-
-        # Begin first iteration through 
-        for line in f_asm.readlines():
-            # Only parse if 
-            if in_comment:
-                # Look for end of multi-line comment
-                pass
-            else:
-                pass
-
 
     finally:
         # Close files
