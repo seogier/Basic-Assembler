@@ -1,0 +1,70 @@
+digraph arpeggio_graph {
+57092208 [label="Model=Sequence"];
+57092208->57520528 [label="1"]
+
+57520528 [label="Program=Sequence"];
+57520528->57523216 [label="1"]
+
+57523216 [label="__asgn_zeroormore=ZeroOrMore"];
+57523216->57449104 [label="1"]
+
+57449104 [label="Op=OrderedChoice"];
+57449104->57520912 [label="1"]
+
+57520912 [label="__asgn_plain=Sequence"];
+57520912->57520432 [label="1"]
+
+57520432 [label="nop=StrMatch(nop)"];
+57449104->67857808 [label="2"]
+
+67857808 [label="add=Sequence"];
+67857808->67857680 [label="1"]
+
+67857680 [label="StrMatch(add)"];
+67857808->67856848 [label="2"]
+
+67856848 [label="__asgn_plain=Sequence"];
+67856848->15631792 [label="1"]
+
+15631792 [label="INT=RegExMatch([-+]?[0-9]+\\b)"];
+67857808->67858160 [label="3"]
+
+67858160 [label="StrMatch(,)"];
+67857808->67857904 [label="4"]
+
+67857904 [label="__asgn_plain=Sequence"];
+67857904->15631792 [label="1"]
+
+57449104->67857456 [label="3"]
+
+67857456 [label="sub=Sequence"];
+67857456->67857936 [label="1"]
+
+67857936 [label="StrMatch(sub)"];
+67857456->67857712 [label="2"]
+
+67857712 [label="__asgn_plain=Sequence"];
+67857712->55035312 [label="1"]
+
+55035312 [label="int=OrderedChoice"];
+55035312->57093296 [label="1"]
+
+57093296 [label="RegExMatch(\\s*\\d+)"];
+55035312->57091856 [label="2"]
+
+57091856 [label="RegExMatch(\\s*0x\\d+)"];
+55035312->57092304 [label="3"]
+
+57092304 [label="RegExMatch(\\s*0b\\d+)"];
+67857456->67857296 [label="3"]
+
+67857296 [label="StrMatch(,)"];
+67857456->67857968 [label="4"]
+
+67857968 [label="__asgn_plain=Sequence"];
+67857968->55035312 [label="1"]
+
+57092208->57091504 [label="2"]
+
+57091504 [label="EOF"];
+}

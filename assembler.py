@@ -3,8 +3,8 @@
 This is a basic assembler, written as an educational exercise in parsing files and writing regular expressions in python.
 """
 
-import re
 import os
+import textX
 
 def _parse_asm(line):
     """Converts a singe line of assembly code into a 32-bit binary instruction
