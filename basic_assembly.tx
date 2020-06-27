@@ -3,7 +3,11 @@ Program:
 ;
 
 Statement:
-    nop | add | sub //jmp | label
+    nop | add | sub | jmp | label
+;
+
+label:
+    label = /\w+/ ':'
 ;
 
 nop:
@@ -18,9 +22,9 @@ sub:
     'sub' arg1 = int ',' arg2 = int
 ;
 
-//jmp:
-//    'jmp' label = 
-//;
+jmp:
+    'jmp' label = ID
+;
 
 
 int:
