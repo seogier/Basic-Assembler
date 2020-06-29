@@ -8,13 +8,25 @@ This DSL, which we call Basic Assembly, is a minimal assembly language for a hyp
 ## Implementation
 The Basic Assembler is implemented in Python 3, using the [textX module](https://github.com/textX/textX) for parsing.
 
-## Instruction Set Architecture
+## Basic Assembly Language
 
+Only //-style comments are supported
+
+## Instruction Set Architecture
+The ISA is big-endian.
 
 ### Instruction Format
+Arithmetic operations with two arguments:
+
 | Opcode  | Arg 1  | Arg 2  |
 |---------|--------|--------|
 | 16 bits | 8 bits | 8 bits |
+
+Jump Instructions:
+
+| Opcode  | Destination   |
+|---------|---------------|
+| 16 bits | 16 bits       |
 
 16-bit opcodes are not necessary, but they make the command fit nicely into a 32-bit word.
 

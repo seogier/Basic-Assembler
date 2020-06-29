@@ -25,12 +25,84 @@ class Assembler:
             'int': self.handle_int # Ensure int is a positive integer
         })
 
+        # Define opcodes
+        self.opcodes = {
+            'add'   :   (0).to_bytes(2, 'big'),
+            'sub'   :   (1).to_bytes(2, 'big'),
+            'jmp'   :   (2).to_bytes(2, 'big'),
+            'nop'   :   (3).to_bytes(2, 'big')
+        }
+
     def compile(self, filename):
         # Split fname into name and extension
+        # The assembly file must have a .asm extension
         asmname, _ = os.path.splitext(filename)
 
+        # Parse assembly file
         self.model = self.mm.model_from_file(asmname + '.asm')
 
+        # Initialize dictionary of labels
+        # key - label name
+        # value - address of the following instruction
+        labels = {}
+
+        # Initialize dictionary of jump instructions
+        # key - instruction address
+        # value - label to jump to
+        jumps = {}
+
+        # Initialize address counter for output file
+        # address counter counts instructions (not bytes) in the output file
+        address = 0
+
+        # Initialize empty bytearray to store program
+        program = bytearray()
+
+        # Convert parsed assembly into machine code
+        
+        # First pass fills in all non-jump commands and builds list of labels
+        for statement in self.model.statements:
+            # Interpret type of statement
+            name = statement.__class__.__name__
+            print(name)
+
+            # Add and Subtract
+            if  (name == 'add') | (name == 'sub'):
+                # Generate instruction to add to program
+                program += self.opcodes[name]
+                program += statement.arg1.to_bytes(1, 'big')
+                program += statement.arg2.to_bytes(1, 'big')
+                address += 4
+
+            # Jump
+            elif name == 'jmp':
+                jumps[address] = statement.label
+                
+                # Insert a filler instruction, to be replaced in the second pass
+                program += (0).to_bytes(4, 'big')
+                address += 4
+
+            # Nop
+            elif statement == 'nop': # Nop is the statement, since it contains nothing
+                program += self.opcodes['nop']
+                program += (0).to_bytes(2, 'big')
+                address += 4
+
+            # Label
+            elif name == 'label':
+                labels[statement.label] = address
+            
+        # Second pass fills in jump instructions
+        for jump in jumps:
+            # Resolve jump destination
+            address = labels[jumps[jump]]
+            # Generate new instruction
+            instruction = self.opcodes['jmp'] + address.to_bytes(2, 'big')
+            program[jump:jump+4] = instruction
+
+        with open(asmname + '.o', 'wb') as f_o:
+            f_o.write(program)
+        
     def handle_int(self, integer):
         """Convert hexidecimal and binary numbers in strings to integers, if needed, and assert non-negativity 
         """
@@ -41,26 +113,4 @@ class Assembler:
         
         assert val>=0, "Negative integers not supported"
         return val
-        
 
-# def assemble(fname):
-#     """Generates a binary file for a supplied assembly file
-
-#     The assembler makes two passes through the .asm file. The first pass is to check syntax, convert non-jump assembly instructions into machine code, and record the location of labels. The second pass generates the jump instructions.
-
-#     fname can be supplied with or without extension (e.g. example or example.asm), but the actual file must be named example.asm
-#     """
-#     # Split fname into name and extension
-#     asmname, _ = os.path.splitext(fname)
-
-#     # Generate textX metamodel
-#     mm = metamodel_from_file()
-
-
-#     try:
-#         # Generate machine code file 
-#         f_o = open(asmname + '.o', 'wb')
-
-#     finally:
-#         # Close files
-#         f_o.close()
