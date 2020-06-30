@@ -3,13 +3,8 @@
 This is a basic assembler, written as an educational exercise in parsing files and writing regular expressions in python.
 """
 
-import os
+import os.path
 from textx.metamodel import metamodel_from_file
-
-def _parse_asm(line):
-    """Converts a singe line of assembly code into a 32-bit binary instruction
-    """
-    return bin
 
 class Assembler:
     """Assembler for custom assembly code
