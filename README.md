@@ -108,3 +108,9 @@ Nop instruction:
 | No Operation | nop      | 0b11   |
 
 The remaining 14 bits of the opcode are filled with zeros.
+
+## Other Resources
+
+[Quick Domain-Specific Languages in Python with textX](https://tomassetti.me/quick-domain-specific-languages-in-python-with-textx/)
+
+[ppci Creating a toy language](https://ppci.readthedocs.io/en/latest/howto/toy.html)
