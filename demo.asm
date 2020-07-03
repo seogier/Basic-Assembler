@@ -1,4 +1,4 @@
-//This is a demonstration of the features of the very basic assembbly language that has been developed for this assembler
+//This is a demonstration of the features of the very basic assembly language that has been developed for this assembler
 
 // Let's start with a label
 Label1:
