@@ -1,7 +1,9 @@
 # Basic-Assembler
 This is an assembler written in Python for a very basic Domain Specific Language (DSL).
 
-This DSL, which we call Basic Assembly, is a minimal assembly language for a hypothetical minimal Instruction Set Architecture (ISA)
+This DSL, which we call Basic Assembly, is a minimal assembly language for a hypothetical minimal Instruction Set Architecture (ISA).
+
+Further details can be found in a [blog post](https://formydeskdrawer.wordpress.com/2020/07/03/a-domain-specific-assembly-language-and-assembler/).
 
 ## Implementation
 The Basic Assembler is implemented in Python 3, using the [textX](https://github.com/textX/textX) module for parsing.
